@@ -22,6 +22,3 @@ RUN gem install foreman
 
 # [Optional] Uncomment this line to install global node packages.
 RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g yarn tyarn" 2>&1
-
-# Install autosuggestion
-RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

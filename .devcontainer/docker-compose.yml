@@ -14,8 +14,6 @@ services:
         NODE_VERSION: '14'
     volumes:
       - ..:/workspaces/mastodon:cached
-      - ./.zshrc:/home/vscode/.zshrc
-#      - ./.zsh_history:/home/vscode/.zsh_history
     environment:
       RAILS_ENV: development
       NODE_ENV: development

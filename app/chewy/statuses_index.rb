@@ -3,7 +3,7 @@
 class StatusesIndex < Chewy::Index
   include FormattingHelper
 
-  settings index: { refresh_interval: '15m' }, analysis: {
+  settings index: { refresh_interval: '30s' }, analysis: {
     filter: {
       english_stop: {
         type: 'stop',
@@ -43,6 +43,8 @@ class StatusesIndex < Chewy::Index
     },
   }
 
+  # We do not use delete_if option here because it would call a method that we
+  # expect to be called with crutches without crutches, causing n+1 queries
   index_scope ::Status.unscoped.kept.without_reblogs.excluding_bots_accounts.includes(:media_attachments, :preloadable_poll)
 
   crutch :mentions do |collection|
@@ -62,6 +64,11 @@ class StatusesIndex < Chewy::Index
 
   crutch :bookmarks do |collection|
     data = ::Bookmark.where(status_id: collection.map(&:id)).where(account: Account.local).pluck(:status_id, :account_id)
+    data.each.with_object({}) { |(id, name), result| (result[id] ||= []).push(name) }
+  end
+
+  crutch :votes do |collection|
+    data = ::PollVote.joins(:poll).where(poll: { status_id: collection.map(&:id) }).where(account: Account.local).pluck(:status_id, :account_id)
     data.each.with_object({}) { |(id, name), result| (result[id] ||= []).push(name) }
   end
 
