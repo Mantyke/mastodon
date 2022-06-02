@@ -62,9 +62,12 @@ class TextFormatter
       end
     end
 
-    html = Kramdown::Document.new(html, build_kramdown_options).to_html
+    html = Kramdown::Document.new(html, build_kramdown_options).to_mastodon
 
-    html = simple_format(html, {}, sanitize: false).delete("\n") if multiline?
+    html = markdown_link_to_url(html)
+
+    # Should by pass the <p> wrapper
+    # html = simple_format(html, {}, sanitize: false).delete("\n") if multiline?
 
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
@@ -136,6 +139,34 @@ class TextFormatter
     HTML
   rescue Addressable::URI::InvalidURIError, IDN::Idna::IdnaError
     h(entity[:url])
+  end
+
+  # We don't use entity here, because regex can be much more easy
+  def markdown_link_to_url(html)
+    url_regexp = URI::Parser.new.make_regexp(%w[http https])
+    document = Nokogiri::HTML5.fragment(html, 'UTF-8')
+    document.children.each do |node|
+      next unless node.name == 'p'
+      node.children.each do |sub|
+        if sub.name == 'text'
+          content = sub.to_html
+          content = content.gsub(url_regexp) { |match|
+            url = match.to_s
+
+            prefix = url.match(URL_PREFIX_REGEX).to_s
+            display_url = url[prefix.length, 30]
+            suffix = url[prefix.length + 30..-1]
+            cutoff = url[prefix.length..-1].length > 30
+
+            <<~HTML.squish
+              <a href="#{h(url)}" target="_blank" rel="#{DEFAULT_REL.join(' ')}"><span class="invisible">#{h(prefix)}</span><span class="#{cutoff ? 'ellipsis' : ''}">#{h(display_url)}</span><span class="invisible">#{h(suffix)}</span></a>
+            HTML
+          } # content.gsub(url_regexp) { |match|
+          sub.replace(content)
+        end # if sub.type == 'text'
+      end # node.children.each do |sub|
+    end # document.children.each do |node|
+    document.to_html
   end
 
   def link_to_hashtag(entity)
