@@ -2450,7 +2450,6 @@
 .public-layout .picture-in-picture__footer .icon-button[aria-label]::after,
 .modal-layout .picture-in-picture__footer .icon-button[aria-label]::after {
   all: unset;
-  content: attr(aria-label);
   font-size: 0.7em;
   margin-inline-start: 0.5em;
   white-space: nowrap;
