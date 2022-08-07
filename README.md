@@ -1,10 +1,16 @@
-**Mastodon fork for <https://littlefo.rest>**
+<h1><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./lib/assets/wordmark-with-sub_forest.dark.png?raw=true">
+  <source media="(prefers-color-scheme: light)" srcset="./lib/assets/wordmark-with-sub_forest.light.png?raw=true">
+  <img alt="Mastodon" src="./lib/assets/wordmark.light.png?raw=true" height="34">
+</picture></h1>
+
+Mastodon fork for [littlefo.rest](https://littlefo.rest)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/1644d6adc0f9d1bbae6a/maintainability)](https://codeclimate.com/github/mashirozx/mastodon/maintainability)
 [![DockerHub](https://img.shields.io/docker/pulls/mashirozx/mastodon.svg?logo=docker&color=2496ED)](https://hub.docker.com/r/mashirozx/mastodon)
-[![Build Prod Image](https://github.com/mashirozx/mastodon/actions/workflows/docker-build-main.yml/badge.svg)](https://github.com/mashirozx/mastodon/actions/workflows/docker-build-main.yml)
-[![Build Dev Image](https://github.com/mashirozx/mastodon/actions/workflows/docker-build-dev.yml/badge.svg)](https://github.com/mashirozx/mastodon/actions/workflows/docker-build-dev.yml)
-[![Build Status](https://drone.2heng.xin/api/badges/mashirozx/mastodon/status.svg?ref=refs/heads/main)](https://drone.2heng.xin/mashirozx/mastodon)
+[![Build Universal Image](https://github.com/mashirozx/mastodon/actions/workflows/docker-build.yml/badge.svg)](https://github.com/mashirozx/mastodon/actions/workflows/docker-build-main.yml)
+[![Build AMD64 Image](https://github.com/mashirozx/mastodon/actions/workflows/docker-build-amd64.yml/badge.svg)](https://github.com/mashirozx/mastodon/actions/workflows/docker-build-dev.yml)
+[![Build ARM64 Image](https://img.shields.io/drone/build/mashirozx/mastodon/main?label=Build%20arm64%20Image&logo=drone&logoColor=%2300abe4&server=https%3A%2F%2Fdrone.2heng.xin)](https://drone.2heng.xin/mashirozx/mastodon)
 
 [//]: # ([![DeepSource]&#40;https://deepsource.io/gh/mashirozx/mastodon.svg/?label=active+issues&#41;]&#40;https://deepsource.io/gh/mashirozx/mastodon/?ref=repository-badge&#41;)
 
@@ -17,20 +23,70 @@
 - Media Sudoku (media attachments upper limit increases to 9), demo [here](https://littlefo.rest/@mashiro/105426865955962437).
 - Local-only toot support.
 - Quotation support like twitter (QT but not RT).
-- An easy-using translation button to translate toot in any language to your mother tongue with Google Translate (see specifications bellow).
+- An easy-using translation button to translate toot in any language to your mother tongue with Google Translate, demo [here](https://s3.mashiro.top/mstdn/media_attachments/files/108/763/169/312/585/099/original/3735baafcfe154f3.png).
 - A bunch of awesome themes.
 - Enhanced Elasticsearch experience with Chinese words segmentation support (see specifications bellow).
 - Login with GitHub and GitLab OAuth 2, try it now [here](https://littlefo.rest)!
 
 ## Specifications
 
-This is a rebase fork of `tootsuite/mastodon`, all local changes are rebased on the top. To pull the latest commits of this repo, use `git reset --hard origin/master` instead of `git pull`.
+### Version Control
+This is a rebase fork of `tootsuite/mastodon`, all local changes are rebased on the top. To pull the latest commits of this repo, use `git reset --hard origin/main` instead of `git pull`. If you are going to develop based on this fork, I strongly recommend you always [cherry-pick](https://git-scm.com/docs/git-cherry-pick) your commits to the `HEAD` of this branch.
 
+### Enable Custom Features
 To enable the new custom features, please add the necessary configurations first according to the file end of `.env.production.sample`.
 
-The translation backend is [here](https://github.com/mashirozx/google-translate-server) and the Docker image [here](https://hub.docker.com/r/mashirozx/google-translate-server), see `docker-compose.yml`.
+**This project added the Chinese words segmentation support in ElasticSearch, please use this [ElasticSearch image](https://github.com/mashirozx/elasticsearch-cnplugin). Using the original version of ElasticSearch Engine may goes into error.**
 
-**This project added the Chinese words segmentation support in Elasticsearch, please use this [Elasticsearch image](https://github.com/mashirozx/elasticsearch-cnplugin). Using the original version of Elasticsearch Engine may goes into error.**
+### Docker Images
+The Docker images are listed [here](https://hub.docker.com/r/mashirozx/mastodon/tags).
+
+<table>
+    <tr>
+        <td>Tag</td>
+        <td>Architecture</td>
+        <td>Remarks</td>
+    </tr>
+    <tr>
+        <td><code>latest</code></td>
+        <td>amd64/arm64</td>
+        <td rowspan=3>The latest image build from <code>main</code> branch (<strong>unstable sometimes</strong>).</td>
+    </tr>
+    <tr>
+        <td><code>latest-arm64</code></td>
+        <td>arm64</td>
+    </tr>
+    <tr>
+        <td><code>latest-amd64</code></td>
+        <td>amd64</td>
+    </tr>
+    <tr>
+        <td><code>sha-*</code></td>
+        <td>amd64/arm64</td>
+        <td rowspan=3>The image build from commit with the specified SHA (<strong>unstable</strong>).</td>
+    </tr>
+    <tr>
+        <td><code>sha-*-arm64</code></td>
+        <td>arm64</td>
+    </tr>
+    <tr>
+        <td><code>sha-*-amd64</code></td>
+        <td>amd64</td>
+    </tr>
+    <tr>
+        <td><code>YY.MM.DD</code></td>
+        <td>amd64/arm64</td>
+        <td rowspan=3>The image build from release. Normally a release was made every time rebase merging upstream code (<strong>stable</strong>).</td>
+    </tr>
+    <tr>
+        <td><code>YY.MM.DD-arm64</code></td>
+        <td>arm64</td>
+    </tr>
+    <tr>
+        <td><code>YY.MM.DD-amd64</code></td>
+        <td>amd64</td>
+    </tr>
+</table>
 
 ## Finally
 
@@ -39,11 +95,15 @@ Thanks for the support of [JetBrains](https://jb.gg/OpenSourceSupport).
 [<img width="100" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg" alt="JetBrains Logo (Main) logo.">](https://jb.gg/OpenSourceSupport)
 
 ***
-*Below is the original README*
+*Follows the original README*
 ***
 
-![Mastodon](https://i.imgur.com/NhZc40l.png)
-========
+
+<h1><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./lib/assets/wordmark.dark.png?raw=true">
+  <source media="(prefers-color-scheme: light)" srcset="./lib/assets/wordmark.light.png?raw=true">
+  <img alt="Mastodon" src="./lib/assets/wordmark.light.png?raw=true" height="34">
+</picture></h1>
 
 [![GitHub release](https://img.shields.io/github/release/mastodon/mastodon.svg)][releases]
 [![Build Status](https://img.shields.io/circleci/project/github/mastodon/mastodon.svg)][circleci]
@@ -79,7 +139,7 @@ Click below to **learn more** in a video:
 
 ## Features
 
-<img src="https://docs.joinmastodon.org/elephant.svg" align="right" width="30%" />
+<img src="/app/javascript/images/elephant_ui_working.svg?raw=true" align="right" width="30%" />
 
 ### No vendor lock-in: Fully interoperable with any conforming platform
 
@@ -113,8 +173,8 @@ Mastodon acts as an OAuth2 provider, so 3rd party apps can use the REST and Stre
 
 - **PostgreSQL** 9.5+
 - **Redis** 4+
-- **Ruby** 2.5+
-- **Node.js** 12+
+- **Ruby** 2.6+
+- **Node.js** 14+
 
 The repository includes deployment configurations for **Docker and docker-compose** as well as specific platforms like **Heroku**, **Scalingo**, and **Nanobox**. The [**standalone** installation guide](https://docs.joinmastodon.org/admin/install/) is available in the documentation.
 

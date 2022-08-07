@@ -38,7 +38,7 @@ en:
       one: post
       other: posts
     status_count_before: Who published
-    tagline: Follow friends and discover new ones
+    tagline: Decentralized social network
     terms: Terms of service
     unavailable_content: Moderated servers
     unavailable_content_description:
@@ -83,10 +83,8 @@ en:
     posts_tab_heading: Posts
     posts_with_replies: Posts and replies
     roles:
-      admin: Admin
       bot: Bot
       group: Group
-      moderator: Mod
     unavailable: Profile unavailable
     unfollow: Unfollow
   admin:
@@ -105,12 +103,17 @@ en:
       avatar: Avatar
       by_domain: Domain
       change_email:
-        changed_msg: Account email successfully changed!
+        changed_msg: Email successfully changed!
         current_email: Current email
         label: Change email
         new_email: New email
         submit: Change email
         title: Change email for %{username}
+      change_role:
+        changed_msg: Role successfully changed!
+        label: Change role
+        no_role: No role
+        title: Change role for %{username}
       confirm: Confirm
       confirmed: Confirmed
       confirming: Confirming
@@ -155,6 +158,7 @@ en:
         active: Active
         all: All
         pending: Pending
+        silenced: Limited
         suspended: Suspended
         title: Moderation
       moderation_notes: Moderation notes
@@ -162,6 +166,7 @@ en:
       most_recent_ip: Most recent IP
       no_account_selected: No accounts were changed as none were selected
       no_limits_imposed: No limits imposed
+      no_role_assigned: No role assigned
       not_subscribed: Not subscribed
       pending: Pending review
       perform_full_suspension: Suspend
@@ -188,12 +193,7 @@ en:
       reset: Reset
       reset_password: Reset password
       resubscribe: Resubscribe
-      role: Permissions
-      roles:
-        admin: Administrator
-        moderator: Moderator
-        staff: Staff
-        user: User
+      role: Role
       search: Search
       search_same_email_domain: Other users with the same e-mail domain
       search_same_ip: Other users with the same IP
@@ -429,6 +429,7 @@ en:
       destroyed_msg: Domain block has been undone
       domain: Domain
       edit: Edit domain block
+      existing_domain_block: You have already imposed stricter limits on %{name}.
       existing_domain_block_html: You have already imposed stricter limits on %{name}, you need to <a href="%{unblock_url}">unblock it</a> first.
       new:
         create: Create block
@@ -649,6 +650,67 @@ en:
       unresolved: Unresolved
       updated_at: Updated
       view_profile: View profile
+    roles:
+      add_new: Add role
+      assigned_users:
+        one: "%{count} user"
+        other: "%{count} users"
+      categories:
+        administration: Administration
+        devops: Devops
+        invites: Invites
+        moderation: Moderation
+        special: Special
+      delete: Delete
+      description_html: With <strong>user roles</strong>, you can customize which functions and areas of Mastodon your users can access.
+      edit: Edit '%{name}' role
+      everyone: Default permissions
+      everyone_full_description_html: This is the <strong>base role</strong> affecting <strong>all users</strong>, even those without an assigned role. All other roles inherit permissions from it.
+      permissions_count:
+        one: "%{count} permission"
+        other: "%{count} permissions"
+      privileges:
+        administrator: Administrator
+        administrator_description: Users with this permission will bypass every permission
+        delete_user_data: Delete User Data
+        delete_user_data_description: Allows users to delete other users' data without delay
+        invite_users: Invite Users
+        invite_users_description: Allows users to invite new people to the server
+        manage_announcements: Manage Announcements
+        manage_announcements_description: Allows users to manage announcements on the server
+        manage_appeals: Manage Appeals
+        manage_appeals_description: Allows users to review appeals against moderation actions
+        manage_blocks: Manage Blocks
+        manage_blocks_description: Allows users to block e-mail providers and IP addresses
+        manage_custom_emojis: Manage Custom Emojis
+        manage_custom_emojis_description: Allows users to manage custom emojis on the server
+        manage_federation: Manage Federation
+        manage_federation_description: Allows users to block or allow federation with other domains, and control deliverability
+        manage_invites: Manage Invites
+        manage_invites_description: Allows users to browse and deactivate invite links
+        manage_reports: Manage Reports
+        manage_reports_description: Allows users to review reports and perform moderation actions against them
+        manage_roles: Manage Roles
+        manage_roles_description: Allows users to manage and assign roles below theirs
+        manage_rules: Manage Rules
+        manage_rules_description: Allows users to change server rules
+        manage_settings: Manage Settings
+        manage_settings_description: Allows users to change site settings
+        manage_taxonomies: Manage Taxonomies
+        manage_taxonomies_description: Allows users to review trending content and update hashtag settings
+        manage_user_access: Manage User Access
+        manage_user_access_description: Allows users to disable other users' two-factor authentication, change their e-mail address, and reset their password
+        manage_users: Manage Users
+        manage_users_description: Allows users to view other users' details and perform moderation actions against them
+        manage_webhooks: Manage Webhooks
+        manage_webhooks_description: Allows users to set up webhooks for administrative events
+        view_audit_log: View Audit Log
+        view_audit_log_description: Allows users to see a history of administrative actions on the server
+        view_dashboard: View Dashboard
+        view_dashboard_description: Allows users to access the dashboard and various metrics
+        view_devops: Devops
+        view_devops_description: Allows users to access Sidekiq and pgHero dashboards
+      title: Roles
     rules:
       add_new: Add rule
       delete: Delete
@@ -688,6 +750,9 @@ en:
       hero:
         desc_html: Displayed on the frontpage. At least 600x100px recommended. When not set, falls back to server thumbnail
         title: Hero image
+      invite_request_hint:
+        desc_html: A hint shows above the reason for join in textarea. You can use HTML tags
+        title: Invite request hint
       mascot:
         desc_html: Displayed on multiple pages. At least 293×205px recommended. When not set, falls back to default mascot
         title: Mascot image
@@ -710,9 +775,6 @@ en:
         enable_captcha:
           desc_html: Use captcha in registration form
           title: Enable captcha
-        min_invite_role:
-          disabled: No one
-          title: Allow invitations by
         require_invite_text:
           desc_html: When registrations require manual approval, make the “Why do you want to join?” text input mandatory rather than optional
           title: Require new users to enter a reason to join
@@ -725,9 +787,6 @@ en:
       show_known_fediverse_at_about_page:
         desc_html: When disabled, restricts the public timeline linked from the landing page to showing only local content
         title: Include federated content on unauthenticated public timeline page
-      show_staff_badge:
-        desc_html: Show a staff badge on a user page
-        title: Show staff badge
       site_description:
         desc_html: Introductory paragraph on the API. Describe what makes this Mastodon server special and anything else important. You can use HTML tags, in particular <code>&lt;a&gt;</code> and <code>&lt;em&gt;</code>.
         title: Server description
@@ -749,8 +808,8 @@ en:
         title: Allow unauthenticated access to public timeline
       title: Site settings
       trendable_by_default:
-        desc_html: Affects hashtags that have not been previously disallowed
-        title: Allow hashtags to trend without prior review
+        desc_html: Specific trending content can still be explicitly disallowed
+        title: Allow trends without prior review
       trends:
         desc_html: Publicly display previously reviewed content that is currently trending
         title: Trends
@@ -861,6 +920,26 @@ en:
       edit_preset: Edit warning preset
       empty: You haven't defined any warning presets yet.
       title: Manage warning presets
+    webhooks:
+      add_new: Add endpoint
+      delete: Delete
+      description_html: A <strong>webhook</strong> enables Mastodon to push <strong>real-time notifications</strong> about chosen events to your own application, so your application can <strong>automatically trigger reactions</strong>.
+      disable: Disable
+      disabled: Disabled
+      edit: Edit endpoint
+      empty: You don't have any webhook endpoints configured yet.
+      enable: Enable
+      enabled: Active
+      enabled_events:
+        one: 1 enabled event
+        other: "%{count} enabled events"
+      events: Events
+      new: New webhook
+      rotate_secret: Rotate secret
+      secret: Signing secret
+      status: Status
+      title: Webhooks
+      webhook: Webhook
   admin_mailer:
     new_appeal:
       actions:
@@ -926,7 +1005,6 @@ en:
   applications:
     created: Application successfully created
     destroyed: Application successfully deleted
-    invalid_url: The provided URL is invalid
     regenerate_token: Regenerate access token
     token_regenerated: Access token successfully regenerated
     warning: Be very careful with this data. Never share it with anyone!
@@ -960,6 +1038,14 @@ en:
       saml: SAML
       github: GitHub
       gitlab: GitLab
+      gitee: Gitee
+      azure_oauth2: Microsoft
+    providers_privacy: |
+      We only require and keep the minimum personal information from your auth provider, which includes: username, nickname, avatar and (primary) email. We will not share or leak any personal information or user data to the provider.
+    providers_notice: |
+      This will link your third party account with your account on this site by the (primary) email address for the first time, and then you can login through the third party account.
+    providers_notice_auto_register: |
+      New account will be created with your email and profile information provided by the provider if you have no account here before.
     register: Sign up
     registration_closed: "%{instance} is not accepting new members"
     resend_confirmation: Resend confirmation instructions
@@ -1120,15 +1206,24 @@ en:
       public: Public timelines
       thread: Conversations
     edit:
+      add_keyword: Add keyword
+      keywords: Keywords
       title: Edit filter
     errors:
+      deprecated_api_multiple_keywords: These parameters cannot be changed from this application because they apply to more than one filter keyword. Use a more recent application or the web interface.
       invalid_context: None or invalid context supplied
-      invalid_irreversible: Irreversible filtering only works with home or notifications context
     index:
+      contexts: Filters in %{contexts}
       delete: Delete
       empty: You have no filters.
+      expires_in: Expires in %{distance}
+      expires_on: Expires on %{date}
+      keywords:
+        one: "%{count} keyword"
+        other: "%{count} keywords"
       title: Filters
     new:
+      save: Save new filter
       title: Add new filter
   footer:
     developers: Developers
@@ -1248,6 +1343,8 @@ en:
     copy_account_note_text: 'This user moved from %{acct}, here were your previous notes about them:'
   notification_mailer:
     admin:
+      report:
+        subject: "%{name} submitted a report"
       sign_up:
         subject: "%{name} signed up"
     digest:
@@ -1631,8 +1728,9 @@ en:
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
     bilibili-light: Bilibili
-    contrast: Mastodon (Dark-Blue)
+    contrast: Mastodon (High contrast)
     cybre-light: Cybre Light
+    dark-blue: Mastodon (Dark-Blue)
     dark-cyan: Mastodon (Dark-Cyan)
     dark-green: Mastodon (Dark-Green)
     dark-orange: Mastodon (Dark-Orange)
@@ -1642,6 +1740,7 @@ en:
     dark-yellow: Mastodon (Dark-Yellow)
     default: Mastodon (Default)
     forest: Forest
+    light-blue: Mastodon (Light-Blue)
     light-cyan: Mastodon (Light-Cyan)
     light-green: Mastodon (Light-Green)
     light-orange: Mastodon (Light-Orange)
@@ -1650,7 +1749,7 @@ en:
     light-red: Mastodon (Light-Red)
     light-yellow: Mastodon (Light-Yellow)
     luxury: Luxury
-    mastodon-light: Mastodon (Light-Blue)
+    mastodon-light: Mastodon (Light)
     new-year: New Year
     nga: NGA Style
     sakura: Sakura
@@ -1709,6 +1808,7 @@ en:
       categories:
         spam: Spam
         violation: Content violates the following community guidelines
+      disposer: 'Disposer:'
       explanation:
         delete_statuses: Some of your posts have been found to violate one or more community guidelines and have been subsequently removed by the moderators of %{instance}.
         disable: You can no longer use your account, but your profile and other data remains intact. You can request a backup of your data, change account settings or delete your account.
@@ -1742,6 +1842,8 @@ en:
       final_step: 'Start posting! Even without followers your public posts may be seen by others, for example on the local timeline and in hashtags. You may want to introduce yourself on the #introductions hashtag.'
       full_handle: Your full handle
       full_handle_hint: This is what you would tell your friends so they can message or follow you from another server.
+      random_password: Your temporary password
+      random_password_hint: You can always login with your social login providers, but it's better to reset your password as soon as possible for better account security.
       review_preferences_action: Change preferences
       review_preferences_step: Make sure to set your preferences, such as which emails you'd like to receive, or what privacy level you’d like your posts to default to. If you don’t have motion sickness, you could choose to enable GIF autoplay.
       subject: Welcome to Mastodon

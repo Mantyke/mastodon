@@ -58,6 +58,9 @@ zh-CN:
         setting_display_media_hide_all: 隐藏所有媒体
         setting_display_media_show_all: 显示所有的媒体
         setting_hide_network: 你的关注者和你关注的人将不会在你的个人资料页上展示
+        setting_icon_pack_default: 默认
+        setting_icon_pack_classic: 经典
+        setting_icon_pack_forest: by阿里巴巴图标库
         setting_noindex: 此设置会影响到你的公开个人资料以及嘟文页面
         setting_show_application: 你用来发表嘟文的应用程序将会在你嘟文的详细内容中显示
         setting_use_blurhash: 渐变是基于模糊后的隐藏内容生成的
@@ -71,12 +74,17 @@ zh-CN:
         with_dns_records: Mastodon 会尝试解析所给域名的 DNS 记录，然后把解析结果一并封禁
       featured_tag:
         name: 你可能想要使用以下之一：
+      filters:
+        action: 选择在帖子匹配过滤器时要执行的操作
+        actions:
+          hide: 彻底屏蔽过滤内容，犹如它不曾存在过一般
+          warn: 在警告中提及过滤器标题后，隐藏过滤内容
       form_challenge:
         current_password: 你正在进入安全区域
       imports:
         data: 从其他 Mastodon 服务器导出的 CSV 文件
       invite_request:
-        text: <strong>此项必须填写</strong>，这会有助于我们处理你的申请<br>本实例为私人獭獭客厅，提供小球飞鱼，壁炉，风铃，獭獭提灯，散乱的书本和小雪人，仅开放给熟悉的朋友，请在注册前/后以站点内私信等形式和站长取得联系。注册时请不要使用国内邮箱。<br><br>管理员是技术菜鸟，实例在维护/魔改过程中可能会出现站点下线/无法修复，甚至丢失数据等情况，请在充分了解以上前提的情况下注册，并至少备有一个其他实例的备用账号。<br><br>如果你读完了以上内容，请在输入框内随意和我打声招呼并说明账号用处库啵!<br>
+        text: 这会有助于我们处理你的申请
       ip_block:
         comment: 可选。请记住为什么你添加了此规则。
         expires_in: IP 地址是一种有限的资源，它们有时是共享的，并且常常变化。因此，不推荐无限期的 IP 封禁。
@@ -94,6 +102,16 @@ zh-CN:
         name: 你只能改变字母的大小写，让它更易读
       user:
         chosen_languages: 仅选中语言的嘟文会出现在公共时间轴上（全不选则显示所有语言的嘟文）
+        role: 角色决定该用户拥有的权限
+      user_role:
+        color: 整个用户界面中，该角色使用的颜色，以RGB 十六进制格式
+        highlighted: 这使角色公开可见
+        name: 角色的公开名称，如果角色设置为展示的徽章
+        permissions_as_keys: 具有此角色的用户将有权访问...
+        position: 较高的角色决定在某些情况下解决冲突。某些行动只能对优先级较低的角色执行
+      webhook:
+        events: 选择要发送的事件
+        url: 事件将发送到哪个地点
     labels:
       account:
         fields:
@@ -178,6 +196,7 @@ zh-CN:
         setting_enable_noto_serif: 启用 Noto Serif 字体（衬线体）
         setting_expand_spoilers: 始终展开具有内容警告的嘟文
         setting_hide_network: 隐藏你的社交网络
+        setting_icon_pack: 图标风格
         setting_noindex: 禁止搜索引擎建立索引
         setting_reduce_motion: 降低过渡动画效果
         setting_show_application: 展示你用来发嘟的应用
@@ -189,6 +208,7 @@ zh-CN:
         setting_use_pending_items: 慢速模式
         severity: 级别
         sign_in_token_attempt: 安全码
+        title: 标题
         type: 导入数据类型
         username: 用户名
         username_or_email: 用户名或电子邮件地址
@@ -197,6 +217,10 @@ zh-CN:
         with_dns_records: 包括该域名的 MX 记录和 IP 地址
       featured_tag:
         name: 话题标签
+      filters:
+        actions:
+          hide: 完全隐藏
+          warn: 隐藏时显示警告信息
       interactions:
         must_be_follower: 屏蔽来自未关注我的用户的通知
         must_be_following: 屏蔽来自我未关注的用户的通知
@@ -230,6 +254,17 @@ zh-CN:
         name: 话题标签
         trendable: 允许在热门下显示此话题
         usable: 允许嘟文使用此话题标签
+      user:
+        role: 角色
+      user_role:
+        color: 徽章颜色
+        highlighted: 用户配置中以徽章显示角色
+        name: 名称
+        permissions_as_keys: 权限设置
+        position: 优先权
+      webhook:
+        events: 已启用事件
+        url: 端点网址
     'no': 否
     recommended: 推荐
     required:

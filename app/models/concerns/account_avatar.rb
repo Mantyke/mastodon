@@ -3,7 +3,7 @@
 module AccountAvatar
   extend ActiveSupport::Concern
 
-  IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif'].freeze
+  IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].freeze
   LIMIT = ((ENV['AVATAR_LIMIT'] || 2).to_i).megabytes
 
   class_methods do

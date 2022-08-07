@@ -23,6 +23,6 @@ class CustomCssController < ApplicationController
   def site_setting
     expires_in 3.minutes, public: true
     request.session_options[:skip] = true
-    render plain: Setting.custom_css || '', content_type: 'text/css'
+    render content_type: 'text/css'
   end
 end

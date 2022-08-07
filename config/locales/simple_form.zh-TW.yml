@@ -58,6 +58,9 @@ zh-TW:
         setting_enable_snowfall: 启用雪花特效
         setting_enable_noto_serif: 启用 Noto Serif 字体（衬线体）
         setting_hide_network: 您跟隨的人與跟隨您的人將不會在您的個人資料頁上顯示
+        setting_icon_pack_default: 默認
+        setting_icon_pack_classic: 經典
+        setting_icon_pack_forest: 小森林 (圖標設計： @Siennali)
         setting_noindex: 會影響您的公開個人資料與嘟文頁面
         setting_show_application: 您用來發嘟文的應用程式將會在您嘟文的詳細檢視顯示
         setting_use_blurhash: 漸層圖樣是基於隱藏媒體內容顏色產生，所有細節會變得模糊
@@ -71,6 +74,11 @@ zh-TW:
         with_dns_records: Mastodon 會嘗試解析所給域名的 DNS 記錄，解析結果一致者將一併封鎖
       featured_tag:
         name: 您可能想使用其中一個：
+      filters:
+        action: 請選擇當嘟文符合該過濾器時將被執行之動作
+        actions:
+          hide: 完全隱藏過濾內容，當作它似乎不曾存在過
+          warn: 隱藏過濾內容於過濾器標題之警告後
       form_challenge:
         current_password: 您正要進入安全區域
       imports:
@@ -94,6 +102,16 @@ zh-TW:
         name: 您只能變更大小寫，例如，以使其更易讀。
       user:
         chosen_languages: 當核取時，只有選取語言的嘟文會在公開時間軸中顯示
+        role: 角色控制使用者有哪些權限
+      user_role:
+        color: 在整個使用者介面中用於角色的顏色，十六進位格式的 RGB
+        highlighted: 這會讓角色公開可見
+        name: 角色的公開名稱，如果角色設定為顯示為徽章
+        permissions_as_keys: 有此角色的使用者將有權存取……
+        position: 在某些情況下，衝突的解決方式由更高階的角色決定。某些動作只能由優先程度較低的角色執行
+      webhook:
+        events: 請選擇要傳送的事件
+        url: 事件會被傳送至何處
     labels:
       account:
         fields:
@@ -174,6 +192,7 @@ zh-TW:
         setting_display_media_show_all: 全部顯示
         setting_expand_spoilers: 永遠展開標有內容警告的嘟文
         setting_hide_network: 隱藏您的社交網路
+        setting_icon_pack: 圖標風格
         setting_noindex: 阻止搜尋引擎建立索引
         setting_reduce_motion: 減少過渡動畫效果
         setting_show_application: 顯示用來傳送嘟文的應用程式
@@ -185,6 +204,7 @@ zh-TW:
         setting_use_pending_items: 限速模式
         severity: 優先級
         sign_in_token_attempt: 安全代碼
+        title: 標題
         type: 匯入類型
         username: 使用者名稱
         username_or_email: 使用者名稱或電子信箱地址
@@ -193,6 +213,10 @@ zh-TW:
         with_dns_records: 包括網域的 MX 記錄和 IP 位址
       featured_tag:
         name: "「#」標籤"
+      filters:
+        actions:
+          hide: 完全隱藏
+          warn: 隱藏於警告之後
       interactions:
         must_be_follower: 封鎖非跟隨者的通知
         must_be_following: 封鎖您未跟隨之使用者的通知
@@ -226,6 +250,17 @@ zh-TW:
         name: 主題標籤
         trendable: 允許此主題標籤在趨勢下顯示
         usable: 允許嘟文使用此主題標籤
+      user:
+        role: 角色
+      user_role:
+        color: 識別顏色
+        highlighted: 在使用者個人資料上將角色顯示為徽章
+        name: 名稱
+        permissions_as_keys: 權限
+        position: 優先權
+      webhook:
+        events: 已啟用的事件
+        url: 端點 URL
     'no': 否
     recommended: 建議
     required:

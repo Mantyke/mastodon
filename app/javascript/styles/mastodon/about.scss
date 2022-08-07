@@ -41,7 +41,7 @@ $small-breakpoint: 960px;
 
   p {
     margin-top: 0;
-    margin-bottom: .85em;
+    margin-bottom: 0.85em;
 
     &:last-child {
       margin-bottom: 0;
@@ -73,7 +73,7 @@ $small-breakpoint: 960px;
   h6 {
     font-family: $font-display, sans-serif;
     margin-top: 1.275em;
-    margin-bottom: .85em;
+    margin-bottom: 0.85em;
     font-weight: 500;
     color: $secondary-text-color;
   }
@@ -163,8 +163,8 @@ $small-breakpoint: 960px;
     th,
     td {
       padding: 8px;
-      align-self: start;
-      align-items: start;
+      align-self: flex-start;
+      align-items: flex-start;
       word-break: break-all;
 
       &.nowrap {
@@ -436,7 +436,7 @@ $small-breakpoint: 960px;
     width: 100%;
     height: 0;
     border: 0;
-    border-bottom: 1px solid rgba($ui-base-lighter-color, .6);
+    border-bottom: 1px solid rgba($ui-base-lighter-color, 0.6);
     margin: 20px 0;
 
     &.spacer {
@@ -688,7 +688,7 @@ $small-breakpoint: 960px;
     align-items: center;
     padding: 50px;
 
-    svg {
+    .logo {
       fill: $primary-text-color;
       height: 52px;
     }
@@ -780,12 +780,80 @@ $small-breakpoint: 960px;
     margin-bottom: 25px;
   }
 
+  .simple_form p.tail {
+    color: $darker-text-color;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    margin-top: 25px;
+    margin-bottom: -25px;
+    &:not(:first-child) {
+      margin-top: 30px;
+    }
+    &:first-of-type {
+      margin-top: 5px;
+    }
+  }
+
   &__grid {
     max-width: 960px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: minmax(0, 50%) minmax(0, 50%);
     grid-gap: 30px;
+
+    // reorder the hero widget
+    &__column-registration {
+      .hero-widget {
+        display: none;
+      }
+    }
+
+    &__column-login {
+      .directory {
+        display: none;
+      }
+    }
+
+    &__column-registration.reorder {
+      .hero-widget {
+        margin-top: 0;
+        margin-bottom: 30px;
+      }
+
+      @media screen and (min-width: 739px) {
+        .hero-widget {
+          display: block;
+        }
+        .directory {
+          display: none;
+        }
+      }
+
+      @media screen and (max-width: 738px) {
+        .hero-widget {
+          display: none;
+        }
+      }
+    }
+
+    &__column-login.reorder {
+      @media screen and (min-width: 739px) {
+        .hero-widget {
+          display: none;
+        }
+        .directory {
+          display: block;
+        }
+      }
+
+      @media screen and (max-width: 738px) {
+        .directory {
+          display: none;
+        }
+      }
+    }
+    // !reorder the hero widget
 
     @media screen and (max-width: 738px) {
       grid-template-columns: minmax(0, 100%);

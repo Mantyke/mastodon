@@ -58,6 +58,9 @@ en:
         setting_display_media_hide_all: Always hide media
         setting_display_media_show_all: Always show media
         setting_hide_network: Who you follow and who follows you will be hidden on your profile
+        setting_icon_pack_default: Default
+        setting_icon_pack_classic: Classic
+        setting_icon_pack_forest: Little forest (Icons Designed by @Siennali)
         setting_noindex: Affects your public profile and post pages
         setting_show_application: The application you use to post will be displayed in the detailed view of your posts
         setting_use_blurhash: Gradients are based on the colors of the hidden visuals but obfuscate any details
@@ -71,12 +74,17 @@ en:
         with_dns_records: An attempt to resolve the given domain's DNS records will be made and the results will also be blocked
       featured_tag:
         name: 'You might want to use one of these:'
+      filters:
+        action: Chose which action to perform when a post matches the filter
+        actions:
+          hide: Completely hide the filtered content, behaving as if it did not exist
+          warn: Hide the filtered content behind a warning mentioning the filter's title
       form_challenge:
         current_password: You are entering a secure area
       imports:
         data: CSV file exported from another Mastodon server
       invite_request:
-        text: This will help us review your application<br><br><em>You can login with your GitHub or GitLab account, which will skip this registration audit.</em><br><br>Be sure to answer the following questions with an appropriate level of detail. Aside from yes/no questions a few sentences, a short paragraph will do. Please construct your registration request message carefully. We expect thoughtful detailed answers, not a single word.<br><br>1) Have you read all of the <a href="/about/more" target="_blank">server rules</a> and <a href="/terms" target="_blank">terms of service</a>, and understand them (yes or no)? Rules are important for Mastodon Instances.<br><br>2) Tell us about your interests and what sorts of projects or work you are involved in and the type of topics you would like to post about?<br><br>3) How did you hear about this site and why would you like to join our community as opposed to one of the many other Mastodon instances? <br><br>If you are invited by user on this instance, please attach the link or ID of the inviter.
+        text: This will help us review your application
       ip_block:
         comment: Optional. Remember why you added this rule.
         expires_in: IP addresses are a finite resource, they are sometimes shared and often change hands. For this reason, indefinite IP blocks are not recommended.
@@ -94,6 +102,16 @@ en:
         name: You can only change the casing of the letters, for example, to make it more readable
       user:
         chosen_languages: When checked, only posts in selected languages will be displayed in public timelines
+        role: The role controls which permissions the user has
+      user_role:
+        color: Color to be used for the role throughout the UI, as RGB in hex format
+        highlighted: This makes the role publicly visible
+        name: Public name of the role, if role is set to be displayed as a badge
+        permissions_as_keys: Users with this role will have access to...
+        position: Higher role decides conflict resolution in certain situations. Certain actions can only be performed on roles with a lower priority
+      webhook:
+        events: Select events to send
+        url: Where events will be sent to
     labels:
       account:
         fields:
@@ -178,6 +196,7 @@ en:
         setting_enable_noto_serif: Enable Noto Serif Font
         setting_expand_spoilers: Always expand posts marked with content warnings
         setting_hide_network: Hide your social graph
+        setting_icon_pack: Icon pack
         setting_noindex: Opt-out of search engine indexing
         setting_reduce_motion: Reduce motion in animations
         setting_show_application: Disclose application used to send posts
@@ -189,6 +208,7 @@ en:
         setting_use_pending_items: Slow mode
         severity: Severity
         sign_in_token_attempt: Security code
+        title: Title
         type: Import type
         username: Username
         username_or_email: Username or Email
@@ -197,6 +217,10 @@ en:
         with_dns_records: Include MX records and IPs of the domain
       featured_tag:
         name: Hashtag
+      filters:
+        actions:
+          hide: Hide completely
+          warn: Hide with a warning
       interactions:
         must_be_follower: Block notifications from non-followers
         must_be_following: Block notifications from people you don't follow
@@ -230,7 +254,19 @@ en:
         name: Hashtag
         trendable: Allow this hashtag to appear under trends
         usable: Allow posts to use this hashtag
+      user:
+        role: Role
+      user_role:
+        color: Badge color
+        highlighted: Display role as badge on user profiles
+        name: Name
+        permissions_as_keys: Permissions
+        position: Priority
+      webhook:
+        events: Enabled events
+        url: Endpoint URL
     'no': 'No'
+    not_recommended: Not recommended
     recommended: Recommended
     required:
       mark: "*"

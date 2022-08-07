@@ -42,6 +42,9 @@ module Omniauthable
     end
 
     def create_for_oauth(auth)
+      Rails.logger.info "Creating user for #{auth.provider} identity"
+      Rails.logger.info "  auth.info: #{auth.info.to_json}"
+      Rails.logger.info "  auth.uid: #{auth.uid}"
       # Check if the user exists with provided email. If no email was provided,
       # we assign a temporary email and ask the user to verify it on
       # the next step via Auth::SetupController.show
@@ -68,15 +71,27 @@ module Omniauthable
     end
 
     private
+      # user     = User.new(email: options[:email], password: password, agreement: true, approved: true, admin: options[:role] == 'admin', moderator: options[:role] == 'moderator', confirmed_at: options[:confirmed] ? Time.now.utc : nil, bypass_invite_request_check: true)
 
     def user_params_from_auth(email, auth)
+      username = ensure_unique_username(auth)
+      password = SecureRandom.hex(10)
+
+      Redisable.redis.del("oauth_user_random_password:#{username}")
+      Redisable.redis.setex("oauth_user_random_password:#{username}", 20.minutes.seconds, password)
+
       {
         email: email || "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
+        password: password,
         agreement: true,
+        approved: true,
         external: true,
+        confirmed_at: Time.now.utc,
+        locale: I18n.locale.to_s,
+        bypass_invite_request_check: true,
         account_attributes: {
-          username: ensure_unique_username(auth),
-          display_name: trusted_auth_provider_display_name(auth) || 
+          username: username,
+          display_name: trusted_auth_provider_display_name(auth) ||
                         auth.info.full_name || auth.info.name || [auth.info.first_name, auth.info.last_name].join(' '),
         },
       }
@@ -84,22 +99,27 @@ module Omniauthable
 
     def ensure_unique_username(auth)
       username = auth.uid
-      auth_provideded_username = nil
-      i        = 0
+      auth_provided_username = nil
+      i        = 1
+      force_use_number_suffix = false
 
-      if auth.provider == 'github'
-        auth_provideded_username = auth.info.nickname
-      elsif auth.provider == 'gitlab'
-        auth_provideded_username = auth.info.username
+      if %w(github gitee gitlab).include?(auth.provider)
+        auth_provided_username = auth.info.nickname
+      elsif %(azure_oauth2).include?(auth.provider)
+        auth_provided_username = 'azure'
+        force_use_number_suffix = true
       end
 
-      username = auth_provideded_username unless auth_provideded_username.empty?
+      username = auth_provided_username unless auth_provided_username.nil? || auth_provided_username.empty?
 
       username = ensure_valid_username(username)
 
+      username = "#{username}_#{i}" if force_use_number_suffix
+      i += 1 if force_use_number_suffix
+
       while Account.exists?(username: username, domain: nil)
         i       += 1
-        username = "#{auth_provideded_username || auth.uid}_#{i}"
+        username = "#{auth_provided_username || auth.uid}_#{i}"
       end
 
       username
@@ -113,13 +133,11 @@ module Omniauthable
     end
     
     def trusted_auth_provider(auth)
-      auth.provider == 'github' || auth.provider == 'gitlab'
+      %w(github gitlab gitee azure_oauth2).include?(auth.provider)
     end
 
     def trusted_auth_provider_display_name(auth)
-      if auth.provider == 'github'
-        return auth.info.name
-      elsif auth.provider == 'gitlab'
+      if %w(github gitee gitlab azure_oauth2).include?(auth.provider)
         return auth.info.name
       end
 
@@ -127,10 +145,12 @@ module Omniauthable
     end
 
     def trusted_auth_provider_email(auth)
-      if auth.provider == 'github'
-        return auth.info.email || auth.extra['all_emails'].select{ |email| email.primary? }.email
-      elsif auth.provider == 'gitlab'
+      if %w(gitlab azure_oauth2).include?(auth.provider)
         return auth.info.email
+      elsif %w(github).include?(auth.provider)
+        return auth.info.email || auth.extra['all_emails'].select{ |email| email.primary? }[0]&.email
+      elsif %w(gitee).include?(auth.provider)
+        return auth.info.email || auth.extra['all_emails'].select{ |email| email['scope'].include? 'primary' }[0]&.email
       end
 
       return auth.info.verified_email || auth.info.email
