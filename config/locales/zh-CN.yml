@@ -342,7 +342,7 @@ zh-CN:
       new:
         create: 创建公告
         title: 新公告
-      publish: 发布
+      publish: 嘟嘟
       published_msg: 公告已发布！
       scheduled_for: 定时在 %{time}
       scheduled_msg: 定时公告已创建！
@@ -1726,6 +1726,9 @@ zh-CN:
     ubuntu-light: Ubuntu 橙
     ubuntu-terminal: Ubuntu 命令行
     witches-town: 巫师小镇
+    modern-light: Coffee Light
+    modern-dark: Coffee Dark
+    modern-contrast: Coffee Dark Roasted (Contrast)
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
