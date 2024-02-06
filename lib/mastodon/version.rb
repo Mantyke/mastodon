@@ -21,7 +21,7 @@ module Mastodon
     end
 
     def suffix
-      '~hello'
+      '~hello+fix'
     end
 
     def to_a
