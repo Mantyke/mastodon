@@ -6,6 +6,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 
 # Install Node v16 (LTS)
 ENV NODE_VER="18.17.0"
+ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN ARCH= && \
     dpkgArch="$(dpkg --print-architecture)" && \
   case "${dpkgArch##*-}" in \
