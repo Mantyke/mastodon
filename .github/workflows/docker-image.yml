@@ -29,6 +29,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: mantyke/mastodon:v3.5.3-fix-bug
+          tags: mantyke/mastodon:v3.5.19
           platforms: linux/amd64,linux/arm64
 
